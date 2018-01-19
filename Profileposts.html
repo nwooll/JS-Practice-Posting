@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>A00987471 - Logics 2 </title>
+    
+    
+    
+    <style>
+        
+        #controls {
+            width: 50vw;
+            margin:auto;
+        }
+        
+        
+        #controls input{
+            width: 100%;
+            text-align: center;
+            height: 50px;
+        }
+        
+        #img, #post {
+            display:none;
+        }
+        
+        .wrapper {}
+        
+        .name {}
+        
+        .postD {}
+        
+        .postImg {}
+        
+        
+    </style>
+    </head>
+    
+    
+    <body>
+    
+        <div id="controls">
+            <button id= "viewAll">View All Posts</button>
+        <input type="text" id="username" placeholder="Type your username here"/>
+             <input type="text" id="img" placeholder="Type your img here"/>
+             <input type="text" id="post" placeholder="Type your post here"/>
+        </div>
+    
+        <div id="postboard"></div>
+    <script>
+        
+        var musername = document.getElementById("username");
+        var mimg = document.getElementById("img");
+        var mpost = document.getElementById("post");
+        var mPB = document.getElementById("postboard");
+        
+        var viewBut = document.getElementById("viewAll");
+        
+        var numpost = 0;
+        var divArr = [];
+        
+        var uArr = [];
+        var iArr = [];
+        var pArr = [];
+        
+        musername.addEventListener("keyup", function(ev){
+           //when key is pressed up
+            console.log(ev.keyCode);
+            
+            if(ev.keyCode == 13) {
+                
+                
+                if(musername.value != ""){
+                    mimg.style.display ="block"; 
+                    mimg.focus();
+                }
+            
+            }
+        });
+        
+        mimg.addEventListener("keyup", function(ev){
+           if(ev.keyCode ==13){
+               if(mimg.value != ""){
+                   mpost.style.display = "block";
+                   mpost.focus();
+               }
+           } 
+        });
+        
+        mpost.addEventListener("keyup", function(ev){
+           if(ev.keyCode ==13){
+               if(mpost.value != "" && mimg.value != "" && musername.value != ""){
+                 console.log("POST");
+               
+                   
+                   if(numpost > 3){
+                       mPB.removeChild(divArr[1]);
+                       divArr.shift();
+                   }
+                   
+               var ndiv1 = document.createElement("div");
+               var nimg = document.createElement("img");
+               var ndiv2 = document.createElement("div");
+               var ndiv3 = document.createElement("div");
+                   
+            ndiv2.innerHTML = musername.value;       
+                   nimg.src = mimg.value;
+                   ndiv3.innerHTML = mpost.value;
+                   
+                   ndiv1.appendChild(ndiv2); 
+                   ndiv1.appendChild(nimg);
+                   ndiv1.appendChild(ndiv3); 
+                   
+                   
+                   ndiv1.className = "wrapper";
+                   ndiv2.className = "name";
+                   ndiv3.className = "postD";
+                   nimg.className = "postImg";
+                   
+                   
+                   mPB.appendChild(ndiv1);
+                   
+                   numpost ++;
+                   divArr.push(ndiv1);
+                   uArr.push(musername.value);
+                   iArr.push(mimg.value);
+                   pArr.push(mpost.value);
+                   
+                   
+                   console.log(divArr, uArr, iArr, pArr);
+               }
+           } 
+            
+        });
+        
+        viewBut.addEventListener("click", function(){
+            mPB.innerHTML = "";
+            for(var i = 0; i<uArr.length; i++){
+                 var ndiv1 = document.createElement("div");
+               var nimg = document.createElement("img");
+               var ndiv2 = document.createElement("div");
+               var ndiv3 = document.createElement("div");
+                   
+            ndiv2.innerHTML = uArr[i];       
+                   nimg.src = iArr[i];
+                   ndiv3.innerHTML = pArr[i];
+                   
+                   ndiv1.appendChild(ndiv2); 
+                   ndiv1.appendChild(nimg);
+                   ndiv1.appendChild(ndiv3); 
+                   
+                   
+                   ndiv1.className = "wrapper";
+                   ndiv2.className = "name";
+                   ndiv3.className = "postD";
+                   nimg.className = "postImg";
+                   
+                   
+                   mPB.appendChild(ndiv1);
+            }
+            
+        });
+        </script>
+    
+    </body>
+    
+</html>
